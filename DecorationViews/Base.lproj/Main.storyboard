@@ -25,11 +25,11 @@
             </objects>
             <point key="canvasLocation" x="-799" y="131"/>
         </scene>
-        <!--Events ListVC-->
+        <!--Daily Calendar Collection View Controller-->
         <scene sceneID="ium-tB-AiO">
             <objects>
-                <collectionViewController storyboardIdentifier="EventsListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rMU-x1-G1d" customClass="EventsListVC" customModule="DecorationViews" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="kd4-20-EZz">
+                <collectionViewController storyboardIdentifier="EventsListVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rMU-x1-G1d" customClass="DailyCalendarCollectionViewController" customModule="DecorationViews" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="kd4-20-EZz">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -40,7 +40,7 @@
                             <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EventCell" id="CTG-kl-Eng" customClass="EventCell" customModule="DecorationViews" customModuleProvider="target">
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="EventCell" reuseIdentifier="EventCell" id="CTG-kl-Eng" customClass="EventCell" customModule="DecorationViews" customModuleProvider="target">
                                 <rect key="frame" x="52.5" y="0.0" width="270" height="102"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">

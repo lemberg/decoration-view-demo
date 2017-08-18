@@ -23,7 +23,7 @@ class TimeLineGrid: UICollectionReusableView {
         timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         timeLabel.font = UIFont(name: "GillSans-Bold", size: 40)
         timeLabel.text = "00:00"
-        self.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+        self.backgroundColor = #colorLiteral(red: 0.4352941215, green: 0.4431372583, blue: 0.4745098054, alpha: 1)
         self.addSubview(timeLabel)
         self.addSubview(line)
       

@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 protocol CalendarFlowLayoutDelegate: UICollectionViewDelegateFlowLayout {
-  //      func collectionView(_ collectionView: UICollectionView, layout: MosaicPinLayout, originalItemSizeAtIndexPath: IndexPath) -> CGSize
+  
 }
 
 class CalendarFlowLayout: UICollectionViewFlowLayout {
@@ -18,8 +18,16 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   var delegate: CalendarFlowLayoutDelegate!
   
   private let timeLine = "TimeLine"
+  private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
-  private var eventHeight: CGFloat = 30
+  private let leftEventInset: CGFloat = 40
+  private let eventHeignt: CGFloat = 40
+  private var timeLineSpace: CGFloat {
+    return eventHeignt - 2 * overlayValue
+  }
+  private var hours: Int {
+    return 24
+  }
   private var numberOfItems: Int {
     return collectionView!.numberOfItems(inSection: 0)
   }
@@ -41,7 +49,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   private var decorationAttributes: [UICollectionViewLayoutAttributes] {
     var attributes: [UICollectionViewLayoutAttributes] = []
-    for item in 0..<numberOfItems {
+    for item in 0..<hours {
       let indexPath = IndexPath(item: item, section: 0)
       if let decatts = self.layoutAttributesForDecorationView(ofKind:self.timeLine, at: indexPath) {
         attributes.append(decatts)
@@ -50,16 +58,30 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
     return attributes
   }
   
+  var eventsAttributes: [UICollectionViewLayoutAttributes] {
+    var attributes: [UICollectionViewLayoutAttributes] = []
+    for item in 0..<numberOfItems {
+      let indexPath = IndexPath(item: item, section: 0)
+      let attr = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+      attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2*overlayValue) + timeLineHeight - overlayValue , width: collectionViewWidth-leftEventInset, height: eventHeignt)
+      attr.zIndex = 1
+      attr.alpha = 0.6
+      attributes.append(attr)
+    }
+    return attributes
+  }
+  
   override func prepare() {
     super.prepare()
     if cache.isEmpty {
       cache.append(contentsOf: decorationAttributes)
+      cache.append(contentsOf: eventsAttributes)
     }
   }
   
   override func layoutAttributesForDecorationView( ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     let atts = UICollectionViewLayoutAttributes(forDecorationViewOfKind:timeLine, with:indexPath)
-    atts.frame = CGRect(x: 0, y: CGFloat(indexPath.item) * (timeLineHeight + eventHeight), width: collectionViewWidth, height: timeLineHeight)
+    atts.frame = CGRect(x: 0, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace), width: collectionViewWidth, height: timeLineHeight)
     atts.zIndex = -1
     return atts
   }
@@ -84,7 +106,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   }
   
   override var collectionViewContentSize: CGSize {
-    return CGSize(width: collectionViewWidth, height: (timeLineHeight + eventHeight) * CGFloat(numberOfItems))
+    return CGSize(width: collectionViewWidth, height: (timeLineHeight + timeLineSpace) * CGFloat(hours) - timeLineSpace)
   }
   
 }

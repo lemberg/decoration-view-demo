@@ -9,11 +9,10 @@
 /* Begin PBXBuildFile section */
 		1713AB293F2BB174B6A63A77 /* Pods_DecorationViews.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BC6382D48699B5466BE9A6A1 /* Pods_DecorationViews.framework */; };
 		9B3D60161F46E8AB0083C36D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D60151F46E8AB0083C36D /* AppDelegate.swift */; };
-		9B3D60181F46E8AB0083C36D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D60171F46E8AB0083C36D /* ViewController.swift */; };
 		9B3D601B1F46E8AB0083C36D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D60191F46E8AB0083C36D /* Main.storyboard */; };
 		9B3D601D1F46E8AB0083C36D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D601C1F46E8AB0083C36D /* Assets.xcassets */; };
 		9B3D60201F46E8AB0083C36D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9B3D601E1F46E8AB0083C36D /* LaunchScreen.storyboard */; };
-		9B3D60281F46E9150083C36D /* EventsListVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D60271F46E9150083C36D /* EventsListVC.swift */; };
+		9B3D60281F46E9150083C36D /* DailyCalendarCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D60271F46E9150083C36D /* DailyCalendarCollectionViewController.swift */; };
 		9B3D602A1F46E98C0083C36D /* CalendarFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D60291F46E98C0083C36D /* CalendarFlowLayout.swift */; };
 		9B3D602C1F46E9F80083C36D /* TimeLineGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D602B1F46E9F80083C36D /* TimeLineGrid.swift */; };
 		9B3D602E1F46FB960083C36D /* EventCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B3D602D1F46FB960083C36D /* EventCell.swift */; };
@@ -23,12 +22,11 @@
 		570E1D70A73A97115B917403 /* Pods-DecorationViews.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DecorationViews.release.xcconfig"; path = "Pods/Target Support Files/Pods-DecorationViews/Pods-DecorationViews.release.xcconfig"; sourceTree = "<group>"; };
 		9B3D60121F46E8AB0083C36D /* DecorationViews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DecorationViews.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9B3D60151F46E8AB0083C36D /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		9B3D60171F46E8AB0083C36D /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		9B3D601A1F46E8AB0083C36D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9B3D601C1F46E8AB0083C36D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9B3D601F1F46E8AB0083C36D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9B3D60211F46E8AB0083C36D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9B3D60271F46E9150083C36D /* EventsListVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventsListVC.swift; path = classes/EventsListVC.swift; sourceTree = "<group>"; };
+		9B3D60271F46E9150083C36D /* DailyCalendarCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DailyCalendarCollectionViewController.swift; path = classes/DailyCalendarCollectionViewController.swift; sourceTree = "<group>"; };
 		9B3D60291F46E98C0083C36D /* CalendarFlowLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CalendarFlowLayout.swift; path = classes/CalendarFlowLayout.swift; sourceTree = "<group>"; };
 		9B3D602B1F46E9F80083C36D /* TimeLineGrid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = TimeLineGrid.swift; path = classes/TimeLineGrid.swift; sourceTree = "<group>"; };
 		9B3D602D1F46FB960083C36D /* EventCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EventCell.swift; path = classes/EventCell.swift; sourceTree = "<group>"; };
@@ -57,6 +55,16 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		1F3BED591F47367B001542F3 /* Supporting files */ = {
+			isa = PBXGroup;
+			children = (
+				9B3D601C1F46E8AB0083C36D /* Assets.xcassets */,
+				9B3D601E1F46E8AB0083C36D /* LaunchScreen.storyboard */,
+				9B3D60211F46E8AB0083C36D /* Info.plist */,
+			);
+			name = "Supporting files";
+			sourceTree = "<group>";
+		};
 		9B3D60091F46E8AB0083C36D = {
 			isa = PBXGroup;
 			children = (
@@ -79,15 +87,12 @@
 			isa = PBXGroup;
 			children = (
 				9B3D60151F46E8AB0083C36D /* AppDelegate.swift */,
-				9B3D60171F46E8AB0083C36D /* ViewController.swift */,
+				9B3D60271F46E9150083C36D /* DailyCalendarCollectionViewController.swift */,
 				9B3D60291F46E98C0083C36D /* CalendarFlowLayout.swift */,
 				9B3D602B1F46E9F80083C36D /* TimeLineGrid.swift */,
-				9B3D60271F46E9150083C36D /* EventsListVC.swift */,
 				9B3D602D1F46FB960083C36D /* EventCell.swift */,
 				9B3D60191F46E8AB0083C36D /* Main.storyboard */,
-				9B3D601C1F46E8AB0083C36D /* Assets.xcassets */,
-				9B3D601E1F46E8AB0083C36D /* LaunchScreen.storyboard */,
-				9B3D60211F46E8AB0083C36D /* Info.plist */,
+				1F3BED591F47367B001542F3 /* Supporting files */,
 			);
 			path = DecorationViews;
 			sourceTree = "<group>";
@@ -230,9 +235,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9B3D602A1F46E98C0083C36D /* CalendarFlowLayout.swift in Sources */,
-				9B3D60281F46E9150083C36D /* EventsListVC.swift in Sources */,
+				9B3D60281F46E9150083C36D /* DailyCalendarCollectionViewController.swift in Sources */,
 				9B3D602C1F46E9F80083C36D /* TimeLineGrid.swift in Sources */,
-				9B3D60181F46E8AB0083C36D /* ViewController.swift in Sources */,
 				9B3D602E1F46FB960083C36D /* EventCell.swift in Sources */,
 				9B3D60161F46E8AB0083C36D /* AppDelegate.swift in Sources */,
 			);
