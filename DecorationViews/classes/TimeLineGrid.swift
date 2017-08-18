@@ -10,9 +10,6 @@ import Foundation
 import UIKit
 import SnapKit
 
-//class TimeViewLayoutAttributes : UICollectionViewLayoutAttributes {
-//    var time = ""
-//}
 
 class TimeLineGrid: UICollectionReusableView {
     
@@ -23,28 +20,23 @@ class TimeLineGrid: UICollectionReusableView {
     override init(frame: CGRect) {
         
         line = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
-        timeLabel.text = "00:00"
-        
+        timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
         super.init(frame: frame)
 
         self.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-        
-//        self.addSubview(line)
         self.addSubview(timeLabel)
+        
+        timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        timeLabel.font = UIFont(name: "GillSans-Bold", size: 40)
+        timeLabel.text = "00:00"
 
-        let timeLabelWidth = 50
-        self.timeLabel.snp.makeConstraints { (make) -> Void in
-            make.width.equalTo(timeLabelWidth)
-            make.height.equalTo(frame.height)
-        }
-//
-//        self.line.snp.makeConstraints { (make) -> Void in
-//            make.right.equalTo(0)
-//            make.height.equalTo(1)
-//            make.centerY.equalTo(self.center.y)
-//            make.leading.equalTo(timeLabelWidth)
-//
+//        let timeLabelWidth = 50
+//        
+//        self.timeLabel.snp.makeConstraints { (make) -> Void in
+//            make.width.equalTo(timeLabelWidth)
+//            make.height.equalTo(frame.height)
 //        }
+//
 
     }
     
