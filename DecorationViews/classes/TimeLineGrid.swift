@@ -29,23 +29,22 @@ class TimeLineGrid: UICollectionReusableView {
 
         self.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
         
-        self.addSubview(line)
+//        self.addSubview(line)
         self.addSubview(timeLabel)
 
         let timeLabelWidth = 50
-        
         self.timeLabel.snp.makeConstraints { (make) -> Void in
             make.width.equalTo(timeLabelWidth)
             make.height.equalTo(frame.height)
         }
-        
-        self.line.snp.makeConstraints { (make) -> Void in
-            make.right.equalTo(0)
-            make.height.equalTo(1)
-            make.centerY.equalTo(self.center.y)
-            make.leading.equalTo(timeLabelWidth)
-
-        }
+//
+//        self.line.snp.makeConstraints { (make) -> Void in
+//            make.right.equalTo(0)
+//            make.height.equalTo(1)
+//            make.centerY.equalTo(self.center.y)
+//            make.leading.equalTo(timeLabelWidth)
+//
+//        }
 
     }
     

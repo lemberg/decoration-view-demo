@@ -16,6 +16,9 @@ class EventsListVC: UICollectionViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        let flowLayout = EventsFlowLayout()
+        self.collectionView?.collectionViewLayout = flowLayout
+        
         self.collectionView?.register(EventCell.self, forCellWithReuseIdentifier: identifier)
         
     }
@@ -34,7 +37,7 @@ class EventsListVC: UICollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath)
         
         if let cell = cell as? EventCell {
-            cell.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            cell.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
         }
         
         return cell

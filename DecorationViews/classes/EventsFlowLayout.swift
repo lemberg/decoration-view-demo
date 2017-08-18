@@ -71,9 +71,25 @@ class EventsFlowLayout: UICollectionViewFlowLayout {
             return
         }
         
-//        for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
-//
-//        }
+        if cache.isEmpty {
+
+            let columnWidth = 80
+            var xOffset = [CGFloat]()
+            for column in 0 ..< numberOfColumns {
+                xOffset.append(CGFloat(column * columnWidth))
+            }
+
+            for item in 0 ..< collectionView.numberOfItems(inSection: 0) {
+                
+                let indexPath = IndexPath(row: item, section: 0)
+                let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+                
+                attributes.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+                cache.append(attributes)
+
+            }
+        }
+
         
     }
     
@@ -82,10 +98,9 @@ class EventsFlowLayout: UICollectionViewFlowLayout {
     override func layoutAttributesForDecorationView( ofKind elementKind: String, at indexPath: IndexPath) ->
         UICollectionViewLayoutAttributes? {
             
-            if elementKind == self.timeLine {
-                
-            }
-            return nil
+            let attributes = UICollectionViewLayoutAttributes(forCellWith: indexPath)
+            attributes.frame = CGRect(x: 20, y: 0, width: 100, height: 50)
+            return attributes
             
     }
     
@@ -107,7 +122,6 @@ class EventsFlowLayout: UICollectionViewFlowLayout {
             }
             
         }
-        
         
         
         return layoutAttributes
