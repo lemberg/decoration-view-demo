@@ -10,26 +10,23 @@ import Foundation
 import UIKit
 import SnapKit
 
-
 class TimeLineGrid: UICollectionReusableView {
     
     var date: Date = Date()
     var timeLabel: UILabel = UILabel()
-    var line: UIView
+    var line: UIView!
     
     override init(frame: CGRect) {
-        
-        line = UIView(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
-        timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
         super.init(frame: frame)
-
-        self.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
-        self.addSubview(timeLabel)
-        
+        line = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 1))
+        timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
         timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         timeLabel.font = UIFont(name: "GillSans-Bold", size: 40)
         timeLabel.text = "00:00"
-
+        self.backgroundColor = #colorLiteral(red: 0.8374180198, green: 0.8374378085, blue: 0.8374271393, alpha: 1)
+        self.addSubview(timeLabel)
+        self.addSubview(line)
+      
 //        let timeLabelWidth = 50
 //        
 //        self.timeLabel.snp.makeConstraints { (make) -> Void in
@@ -37,7 +34,6 @@ class TimeLineGrid: UICollectionReusableView {
 //            make.height.equalTo(frame.height)
 //        }
 //
-
     }
     
     required init?(coder aDecoder: NSCoder) {
