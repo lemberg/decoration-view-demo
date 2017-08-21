@@ -13,12 +13,12 @@ let identifier = "EventCell"
 class DailyCalendarCollectionViewController: UICollectionViewController {
   
   override func viewDidLoad() {
-    super.viewDidLoad()    
+    super.viewDidLoad()
     self.collectionView?.collectionViewLayout = CalendarFlowLayout()
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 23
+    return 0
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -27,5 +27,19 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
       cell.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
     }
     return cell
+  }
+  
+  override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+    var view: UICollectionReusableView
+    
+    if kind == Kind.timeLine {
+      let columnHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TimeLineGridView.self), for: indexPath) as! TimeLineGridView
+      columnHeader.indexPath = indexPath
+      view = columnHeader
+    } else {
+      view = UICollectionReusableView()
+    }
+    
+    return view
   }
 }

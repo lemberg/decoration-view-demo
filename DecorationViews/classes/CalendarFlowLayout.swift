@@ -17,7 +17,6 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   var delegate: CalendarFlowLayoutDelegate!
   
-  private let timeLine = "TimeLine"
   private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
 
@@ -49,7 +48,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   override init() {
     super.init()
-    register(TimeLineGrid.self, forDecorationViewOfKind: self.timeLine)
+    register(TimeLineGridView.self, forDecorationViewOfKind: Kind.timeLine)
   }
   
   required init?(coder aDecoder: NSCoder) {
@@ -62,7 +61,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
     var attributes: [UICollectionViewLayoutAttributes] = []
     for item in 0..<hours {
       let indexPath = IndexPath(item: item, section: 0)
-      if let decatts = self.layoutAttributesForDecorationView(ofKind:self.timeLine, at: indexPath) {
+      if let decatts = self.layoutAttributesForDecorationView(ofKind: Kind.timeLine, at: indexPath) {
         attributes.append(decatts)
       }
     }
@@ -74,7 +73,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
     for item in 0..<numberOfItems {
       let indexPath = IndexPath(item: item, section: 0)
       let attr = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-      attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2*overlayValue) + timeLineHeight - overlayValue , width: collectionViewWidth-leftEventInset, height: eventHeignt)
+      attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2 * overlayValue) + timeLineHeight - overlayValue , width: collectionViewWidth - leftEventInset, height: eventHeignt)
       attr.zIndex = 1
       attr.alpha = 0.6
       attributes.append(attr)
@@ -91,7 +90,9 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   }
   
   override func layoutAttributesForDecorationView( ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    let atts = UICollectionViewLayoutAttributes(forDecorationViewOfKind:timeLine, with:indexPath)
+    
+    let atts = TimeLineGridViewLayoutAttributes(forDecorationViewOfKind: Kind.timeLine, with:indexPath)
+    atts.title = "123"
     atts.frame = CGRect(x: decorationViewLeftInset, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace), width: collectionViewWidth - decorationViewLeftInset, height: timeLineHeight)
     atts.zIndex = -1
     return atts

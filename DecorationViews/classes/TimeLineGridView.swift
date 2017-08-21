@@ -10,26 +10,29 @@ import Foundation
 import UIKit
 import SnapKit
 
-class TimeLineGrid: UICollectionReusableView {
+class TimeLineGridView: UICollectionReusableView {
   
-  var date: Date = Date()
-  var timeLabel: UILabel = UILabel()
-  var line: UIView!
+  private var timeLabel: UILabel = UILabel()
+  private var line: UIView!
+  private let dateFormatter = DateFormatter()
+  private var dateComponents = DateComponents()
+  
+  var indexPath: IndexPath? {
+    didSet{
+      dateComponents.hour = indexPath!.item
+      timeLabel.text = dateFormatter.string(from: dateComponents.date!)
+    }
+  }
   
   override init(frame: CGRect) {
     super.init(frame: frame)
-    
+    dateFormatter.dateFormat = DateFormatter.dateFormat(fromTemplate: "HH:mm", options: 0, locale: Locale.autoupdatingCurrent)
     line = UIView(frame: CGRect(x: 0, y: 0, width: bounds.width, height: 1))
     line.backgroundColor = #colorLiteral(red: 0.8000000119, green: 0.8000000119, blue: 0.8000000119, alpha: 1)
-    
     timeLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 0, height: frame.height))
-//    timeLabel.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     timeLabel.font = UIFont.systemFont(ofSize: 11)
     timeLabel.textAlignment = .right
     timeLabel.textColor = #colorLiteral(red: 0.8000000119, green: 0.8000000119, blue: 0.8000000119, alpha: 1)
-    timeLabel.text = "00:00"
-    
-//    self.backgroundColor = #colorLiteral(red: 0.8549019694, green: 0.250980407, blue: 0.4784313738, alpha: 1)
     self.addSubview(timeLabel)
     self.addSubview(line)
     
@@ -38,7 +41,6 @@ class TimeLineGrid: UICollectionReusableView {
     self.line.snp.makeConstraints { (make) -> Void in
       make.width.equalTo(bounds.width - CGFloat(timeLabelWidth))
       make.leading.equalTo(timeLabelWidth)
-
       make.height.equalTo(0.5)
       make.centerY.equalToSuperview()
     }
@@ -48,13 +50,24 @@ class TimeLineGrid: UICollectionReusableView {
       make.height.equalToSuperview()
       make.centerY.equalToSuperview()
       make.leading.equalTo(0)
-      
     }
     
+  }
+  
+  override func apply(_ layoutAttributes: UICollectionViewLayoutAttributes) {
+    guard let atts = layoutAttributes as? TimeLineGridViewLayoutAttributes else {
+      super.apply(layoutAttributes)
+      return
+    }
+    self.timeLabel.text = atts.title
+    super.apply(layoutAttributes)
   }
   
   required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
   }
-  
+}
+
+class TimeLineGridViewLayoutAttributes: UICollectionViewLayoutAttributes {  
+  var title: String?
 }
