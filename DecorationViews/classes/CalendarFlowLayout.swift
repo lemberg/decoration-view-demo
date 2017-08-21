@@ -20,14 +20,25 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   private let timeLine = "TimeLine"
   private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
-  private let leftEventInset: CGFloat = 40
+
+  
   private let eventHeignt: CGFloat = 40
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
   }
+  
+  private var decorationViewLeftInset: CGFloat {
+    return 16
+  }
+  
   private var hours: Int {
     return 24
   }
+  
+  private var leftEventInset: CGFloat {
+    return 40 + decorationViewLeftInset
+  }
+  
   private var numberOfItems: Int {
     return collectionView!.numberOfItems(inSection: 0)
   }
@@ -81,7 +92,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   override func layoutAttributesForDecorationView( ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
     let atts = UICollectionViewLayoutAttributes(forDecorationViewOfKind:timeLine, with:indexPath)
-    atts.frame = CGRect(x: 0, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace), width: collectionViewWidth, height: timeLineHeight)
+    atts.frame = CGRect(x: decorationViewLeftInset, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace), width: collectionViewWidth - decorationViewLeftInset, height: timeLineHeight)
     atts.zIndex = -1
     return atts
   }
