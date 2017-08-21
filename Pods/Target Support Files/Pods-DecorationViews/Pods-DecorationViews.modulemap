@@ -1,0 +1,6 @@
+framework module Pods_DecorationViews {
+  umbrella header "Pods-DecorationViews-umbrella.h"
+
+  export *
+  module * { export * }
+}
