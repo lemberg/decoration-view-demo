@@ -21,10 +21,20 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   private let bottomContentInset: CGFloat = 10
   private let defaultEventHeight: CGFloat = 40
     
-  let minZoom: CGFloat = 2.0
-  let maxZoom: CGFloat = 0.5
+  let minZoom: CGFloat = 0.5
+  let maxZoom: CGFloat = 2.0
   
   private var eventHeignt: CGFloat = 40
+    
+    private var scale: CGFloat = 1.0 {
+        didSet {
+            if scale <= minZoom || scale >= maxZoom {
+                scale = oldValue
+            }
+        }
+    }
+    
+    private var startScale: CGFloat = 1.0
   
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
@@ -121,17 +131,15 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
     
     
     if gesture.state == .began {
+        startScale = self.scale
+        return
     }
     
     if gesture.state == .changed {
-      if gesture.scale <= maxZoom {
-        return
-      }
-      
-      if gesture.scale >= minZoom {
-        return
-      }
-      eventHeignt = defaultEventHeight * gesture.scale
+                
+      scale = startScale * gesture.scale
+      eventHeignt = defaultEventHeight * scale
+        
       cache = []
       invalidateLayout()
     }

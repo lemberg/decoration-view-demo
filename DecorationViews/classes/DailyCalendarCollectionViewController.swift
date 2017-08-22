@@ -22,7 +22,6 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
     delegate = layout
     pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didReceivePinchGesture))
     self.collectionView?.addGestureRecognizer(pinchGesture!)
-
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
