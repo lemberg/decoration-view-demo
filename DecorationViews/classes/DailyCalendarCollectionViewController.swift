@@ -28,18 +28,4 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
     }
     return cell
   }
-  
-  override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-    var view: UICollectionReusableView
-    
-    if kind == Kind.timeLine {
-      let columnHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: TimeLineGridView.self), for: indexPath) as! TimeLineGridView
-      columnHeader.indexPath = indexPath
-      view = columnHeader
-    } else {
-      view = UICollectionReusableView()
-    }
-    
-    return view
-  }
 }

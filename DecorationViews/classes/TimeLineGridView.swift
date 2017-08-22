@@ -15,14 +15,7 @@ class TimeLineGridView: UICollectionReusableView {
   private var timeLabel: UILabel = UILabel()
   private var line: UIView!
   private let dateFormatter = DateFormatter()
-  private var dateComponents = DateComponents()
-  
-  var indexPath: IndexPath? {
-    didSet{
-      dateComponents.hour = indexPath!.item
-      timeLabel.text = dateFormatter.string(from: dateComponents.date!)
-    }
-  }
+  private var dateComponents = DateComponents(calendar: .current)
   
   override init(frame: CGRect) {
     super.init(frame: frame)
@@ -59,7 +52,8 @@ class TimeLineGridView: UICollectionReusableView {
       super.apply(layoutAttributes)
       return
     }
-    self.timeLabel.text = atts.title
+    dateComponents.hour = atts.item
+    timeLabel.text = dateFormatter.string(from: dateComponents.date!)
     super.apply(layoutAttributes)
   }
   
@@ -69,5 +63,5 @@ class TimeLineGridView: UICollectionReusableView {
 }
 
 class TimeLineGridViewLayoutAttributes: UICollectionViewLayoutAttributes {  
-  var title: String?
+  var item: Int!
 }

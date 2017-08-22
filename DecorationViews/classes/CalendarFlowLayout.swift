@@ -9,18 +9,14 @@
 import Foundation
 import UIKit
 
-protocol CalendarFlowLayoutDelegate: UICollectionViewDelegateFlowLayout {
+class CalendarFlowLayout: UICollectionViewLayout {
   
-}
-
-class CalendarFlowLayout: UICollectionViewFlowLayout {
-  
-  var delegate: CalendarFlowLayoutDelegate!
+  //var delegate: CalendarFlowLayoutDelegate!
   
   private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
-
-  
+  private let topContentInset: CGFloat = 10
+  private let bottomContentInset: CGFloat = 10
   private let eventHeignt: CGFloat = 40
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
@@ -48,6 +44,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   override init() {
     super.init()
+    collectionView?.contentInset = UIEdgeInsetsMake(40, 0, 40, 0)
     register(TimeLineGridView.self, forDecorationViewOfKind: Kind.timeLine)
   }
   
@@ -59,11 +56,13 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   
   private var decorationAttributes: [UICollectionViewLayoutAttributes] {
     var attributes: [UICollectionViewLayoutAttributes] = []
-    for item in 0..<hours {
-      let indexPath = IndexPath(item: item, section: 0)
-      if let decatts = self.layoutAttributesForDecorationView(ofKind: Kind.timeLine, at: indexPath) {
-        attributes.append(decatts)
-      }
+    for item in 0...hours {
+      let indexPath = IndexPath(row: item, section: 0)
+      let atts = TimeLineGridViewLayoutAttributes(forDecorationViewOfKind: Kind.timeLine, with: indexPath)
+      atts.item = item
+      atts.frame = CGRect(x: decorationViewLeftInset, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace) + topContentInset, width: collectionViewWidth - decorationViewLeftInset, height: timeLineHeight)
+      atts.zIndex = -1
+      attributes.append(atts)
     }
     return attributes
   }
@@ -89,16 +88,6 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
     }
   }
   
-  override func layoutAttributesForDecorationView( ofKind elementKind: String, at indexPath: IndexPath) -> UICollectionViewLayoutAttributes? {
-    
-    let atts = TimeLineGridViewLayoutAttributes(forDecorationViewOfKind: Kind.timeLine, with:indexPath)
-    atts.title = "123"
-    atts.frame = CGRect(x: decorationViewLeftInset, y: CGFloat(indexPath.item) * (timeLineHeight + timeLineSpace), width: collectionViewWidth - decorationViewLeftInset, height: timeLineHeight)
-    atts.zIndex = -1
-    return atts
-  }
-  
-  
   override func layoutAttributesForElements(in rect: CGRect) -> [UICollectionViewLayoutAttributes]? {
     var layoutAttributes = [UICollectionViewLayoutAttributes]()
     
@@ -118,7 +107,7 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   }
   
   override var collectionViewContentSize: CGSize {
-    return CGSize(width: collectionViewWidth, height: (timeLineHeight + timeLineSpace) * CGFloat(hours) - timeLineSpace)
+    return CGSize(width: collectionViewWidth, height: (timeLineHeight + timeLineSpace) * CGFloat(hours+1) - timeLineSpace + topContentInset + bottomContentInset)
   }
   
 }
