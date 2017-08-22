@@ -19,17 +19,13 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   private let timeLineHeight: CGFloat = 10
   private let topContentInset: CGFloat = 10
   private let bottomContentInset: CGFloat = 10
-  private var currentEventHeight: CGFloat = 40
-  private var eventHeignt: CGFloat {
-    get {
-      return currentEventHeight
-    }
-    set {
-      if newValue < 80 && newValue > 20 {
-        self.currentEventHeight = newValue
-      }
-    }
-  }
+  private let defaultEventHeight: CGFloat = 40
+    
+  let minZoom: CGFloat = 2.0
+  let maxZoom: CGFloat = 0.5
+  
+  private var eventHeignt: CGFloat = 40
+  
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
   }
@@ -86,7 +82,6 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
       let attr = UICollectionViewLayoutAttributes(forCellWith: indexPath)
       attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2 * overlayValue) + timeLineHeight - overlayValue + topContentInset, width: collectionViewWidth - leftEventInset, height: eventHeignt)
       attr.zIndex = 1
-      attr.alpha = 0.6
       attributes.append(attr)
     }
     return attributes
@@ -123,11 +118,31 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   }
   
   func didReceivePinchGesture(gesture: UIPinchGestureRecognizer) {
+    
+    
+    if gesture.state == .began {
+    }
+    
     if gesture.state == .changed {
-      eventHeignt = eventHeignt * gesture.scale
+      if gesture.scale <= maxZoom {
+        return
+      }
+      
+      if gesture.scale >= minZoom {
+        return
+      }
+      eventHeignt = defaultEventHeight * gesture.scale
       cache = []
       invalidateLayout()
     }
   }
   
+  
+  override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
+    return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
+  }
+  
+  override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+    return proposedContentOffset
+  }
 }

@@ -40,4 +40,6 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
   func didReceivePinchGesture(gesture: UIPinchGestureRecognizer) {
     delegate?.didReceivePinchGesture(gesture: gesture)    
   }
+  
+  
 }
