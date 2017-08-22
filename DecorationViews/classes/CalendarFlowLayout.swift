@@ -20,7 +20,9 @@ class CalendarFlowLayout: UICollectionViewFlowLayout {
   private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
 
-  
+  let scaleBoundLower: CGFloat = 0.5
+  let scaleBoundUpper: CGFloat = 2.0
+    
   private let eventHeignt: CGFloat = 40
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
