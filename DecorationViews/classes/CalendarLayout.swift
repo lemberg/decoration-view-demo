@@ -9,15 +9,27 @@
 import Foundation
 import UIKit
 
-class CalendarFlowLayout: UICollectionViewLayout {
-  
-  //var delegate: CalendarFlowLayoutDelegate!
+protocol CalendarLayoutDelegate {
+  func didReceivePinchGesture(gesture: UIPinchGestureRecognizer)
+}
+
+class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   
   private let overlayValue: CGFloat = 4
   private let timeLineHeight: CGFloat = 10
   private let topContentInset: CGFloat = 10
   private let bottomContentInset: CGFloat = 10
-  private let eventHeignt: CGFloat = 40
+  private var currentEventHeight: CGFloat = 40
+  private var eventHeignt: CGFloat {
+    get {
+      return currentEventHeight
+    }
+    set {
+      if newValue < 80 && newValue > 20 {
+        self.currentEventHeight = newValue
+      }
+    }
+  }
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
   }
@@ -44,7 +56,7 @@ class CalendarFlowLayout: UICollectionViewLayout {
   
   override init() {
     super.init()
-    collectionView?.contentInset = UIEdgeInsetsMake(40, 0, 40, 0)
+    eventHeignt = 40
     register(TimeLineGridView.self, forDecorationViewOfKind: Kind.timeLine)
   }
   
@@ -72,7 +84,7 @@ class CalendarFlowLayout: UICollectionViewLayout {
     for item in 0..<numberOfItems {
       let indexPath = IndexPath(item: item, section: 0)
       let attr = UICollectionViewLayoutAttributes(forCellWith: indexPath)
-      attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2 * overlayValue) + timeLineHeight - overlayValue , width: collectionViewWidth - leftEventInset, height: eventHeignt)
+      attr.frame = CGRect(x: leftEventInset, y: CGFloat(item) * (eventHeignt + timeLineHeight - 2 * overlayValue) + timeLineHeight - overlayValue + topContentInset, width: collectionViewWidth - leftEventInset, height: eventHeignt)
       attr.zIndex = 1
       attr.alpha = 0.6
       attributes.append(attr)
@@ -108,6 +120,14 @@ class CalendarFlowLayout: UICollectionViewLayout {
   
   override var collectionViewContentSize: CGSize {
     return CGSize(width: collectionViewWidth, height: (timeLineHeight + timeLineSpace) * CGFloat(hours+1) - timeLineSpace + topContentInset + bottomContentInset)
+  }
+  
+  func didReceivePinchGesture(gesture: UIPinchGestureRecognizer) {
+    if gesture.state == .changed {
+      eventHeignt = eventHeignt * gesture.scale
+      cache = []
+      invalidateLayout()
+    }
   }
   
 }

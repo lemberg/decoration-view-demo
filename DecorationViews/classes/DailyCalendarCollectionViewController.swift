@@ -12,13 +12,21 @@ let identifier = "EventCell"
 
 class DailyCalendarCollectionViewController: UICollectionViewController {
   
+  var pinchGesture: UIPinchGestureRecognizer?
+  var delegate: CalendarLayoutDelegate?
+
   override func viewDidLoad() {
     super.viewDidLoad()
-    self.collectionView?.collectionViewLayout = CalendarFlowLayout()
+    let layout = CalendarLayout()
+    self.collectionView?.collectionViewLayout = layout
+    delegate = layout
+    pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didReceivePinchGesture))
+    self.collectionView?.addGestureRecognizer(pinchGesture!)
+
   }
   
   override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return 0
+    return 20
   }
   
   override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -27,5 +35,9 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
       cell.backgroundColor = #colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)
     }
     return cell
+  }
+  
+  func didReceivePinchGesture(gesture: UIPinchGestureRecognizer) {
+    delegate?.didReceivePinchGesture(gesture: gesture)    
   }
 }
