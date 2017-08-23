@@ -143,6 +143,7 @@
 				TargetAttributes = {
 					9B3D60111F46E8AB0083C36D = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = ZJ9YMYC772;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -366,6 +367,7 @@
 			baseConfigurationReference = DCF4201F1836E1F059822373 /* Pods-DecorationViews.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZJ9YMYC772;
 				INFOPLIST_FILE = DecorationViews/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.DecorationViews;
@@ -379,6 +381,7 @@
 			baseConfigurationReference = 570E1D70A73A97115B917403 /* Pods-DecorationViews.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = ZJ9YMYC772;
 				INFOPLIST_FILE = DecorationViews/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.lemberg.DecorationViews;

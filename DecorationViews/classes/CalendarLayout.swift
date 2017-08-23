@@ -20,21 +20,21 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   private let topContentInset: CGFloat = 10
   private let bottomContentInset: CGFloat = 10
   private let defaultEventHeight: CGFloat = 40
-    
-  let minZoom: CGFloat = 0.5
-  let maxZoom: CGFloat = 2.0
+  
+  let minZoom: CGFloat = 0.7
+  let maxZoom: CGFloat = 1.5
   
   private var eventHeignt: CGFloat = 40
-    
-    private var scale: CGFloat = 1.0 {
-        didSet {
-            if scale <= minZoom || scale >= maxZoom {
-                scale = oldValue
-            }
-        }
+  
+  private var scale: CGFloat = 1.0 {
+    didSet {
+      if scale <= minZoom || scale >= maxZoom {
+        scale = oldValue
+      }
     }
-    
-    private var startScale: CGFloat = 1.0
+  }
+  
+  private var startScale: CGFloat = 1.0
   
   private var timeLineSpace: CGFloat {
     return eventHeignt - 2 * overlayValue
@@ -124,23 +124,41 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   }
   
   override var collectionViewContentSize: CGSize {
-    return CGSize(width: collectionViewWidth, height: (timeLineHeight + timeLineSpace) * CGFloat(hours+1) - timeLineSpace + topContentInset + bottomContentInset)
+    return CGSize(width: collectionViewWidth, height: ((timeLineHeight + timeLineSpace) * CGFloat(hours+1) - timeLineSpace + topContentInset + bottomContentInset))
   }
   
   func didReceivePinchGesture(gesture: UIPinchGestureRecognizer) {
     
-    
     if gesture.state == .began {
-        startScale = self.scale
-        return
+      startScale = self.scale
+      return
     }
     
     if gesture.state == .changed {
-                
       scale = startScale * gesture.scale
       eventHeignt = defaultEventHeight * scale
-        
+      
+      let gestureCenter = gesture.location(in: collectionView)
+
+      let yPoint = gestureCenter.y * scale / 2
+      
+      let pointOffset = CGPoint(x: 0, y: yPoint)
+      
+      let contentHeight = collectionViewContentSize.height
+      let scrollViewHeight = collectionView!.bounds.height
+      
+      if (true)
+      {
+        collectionView?.setContentOffset(CGPoint(x: 0, y: -(scrollViewHeight - contentHeight) / CGFloat(2.0)), animated: false)
+      }
+      
+      print("gestureCenter =\(yPoint) & pointOffset = \(pointOffset) & contentSize = \(self.collectionViewContentSize)")
+      print("--------------------------------------------------------")
+      print("scrollViewHeight =\(scrollViewHeight) & contentHeight = \(contentHeight)")
+      print("--------------------------------------------------------")
+      
       cache = []
+      
       invalidateLayout()
     }
   }
