@@ -21,8 +21,12 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   private let bottomContentInset: CGFloat = 10
   private let defaultEventHeight: CGFloat = 40
   
+  private var startGestureLocation: CGPoint = CGPoint()
+  private var startContentHeight: CGFloat = CGFloat()
+  private var gestureOffsetY = CGFloat()
+  
   let minZoom: CGFloat = 0.7
-  let maxZoom: CGFloat = 1.5
+  let maxZoom: CGFloat = 2.0
   
   private var eventHeignt: CGFloat = 40
   
@@ -58,6 +62,9 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
   
   private var collectionViewWidth: CGFloat {
     return collectionView!.bounds.width
+  }
+  private var contentOffsetY: CGFloat {
+    return collectionViewContentSize.height - collectionView!.bounds.height
   }
   
   override init() {
@@ -131,6 +138,8 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
     
     if gesture.state == .began {
       startScale = self.scale
+      startGestureLocation = gesture.location(in: nil)
+      startContentHeight = collectionView!.bounds.height
       return
     }
     
@@ -138,37 +147,40 @@ class CalendarLayout: UICollectionViewLayout, CalendarLayoutDelegate {
       scale = startScale * gesture.scale
       eventHeignt = defaultEventHeight * scale
       
-      let gestureCenter = gesture.location(in: collectionView)
-
-      let yPoint = gestureCenter.y * scale / 2
+      let contentHeight = collectionViewContentSize.height //size depend on cells
+      let collectionViewHeight = collectionView!.bounds.height //fixed bounds
+      let gestureCenterY = gesture.location(in: nil).y
       
-      let pointOffset = CGPoint(x: 0, y: yPoint)
+      gestureOffsetY = contentHeight / 2 - gestureCenterY
       
-      let contentHeight = collectionViewContentSize.height
-      let scrollViewHeight = collectionView!.bounds.height
-      
-      if (true)
-      {
-        collectionView?.setContentOffset(CGPoint(x: 0, y: -(scrollViewHeight - contentHeight) / CGFloat(2.0)), animated: false)
+      if (gestureOffsetY > -collectionView!.contentInset.top && gestureOffsetY < contentOffsetY) {
+        let centerZoomPointY = (contentHeight - collectionViewHeight) / CGFloat(2)
+        print(" (\(contentHeight) - \(collectionViewHeight) / 2) = \(centerZoomPointY)")
+        
+        
+        collectionView?.setContentOffset(CGPoint(x: 0, y: gestureOffsetY), animated: false)
+        
+        print("gestureCenter =\(gestureCenterY) & contentHeight = \(contentHeight)")
+        print("--------------------------------------------------------")
+        print(" gestureOffsetY = \(gestureOffsetY) ")
+        print("--------------------------------------------------------")
+        print("collectionView!.contentSize.height - collectionView!.bounds = \(collectionViewContentSize.height - collectionView!.bounds.height) & collectionViewContentInset = \(collectionView!.contentInset)")
+        print("--------------------------------------------------------")
+        
       }
-      
-      print("gestureCenter =\(yPoint) & pointOffset = \(pointOffset) & contentSize = \(self.collectionViewContentSize)")
-      print("--------------------------------------------------------")
-      print("scrollViewHeight =\(scrollViewHeight) & contentHeight = \(contentHeight)")
-      print("--------------------------------------------------------")
-      
       cache = []
       
       invalidateLayout()
     }
-  }
-  
-  
-  override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint, withScrollingVelocity velocity: CGPoint) -> CGPoint {
-    return super.targetContentOffset(forProposedContentOffset: proposedContentOffset, withScrollingVelocity: velocity)
-  }
-  
-  override func targetContentOffset(forProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
-    return proposedContentOffset
+    
+    //    if gesture.state == .ended {
+    //      if gestureOffsetY < 0 {
+    //        collectionView?.setContentOffset(CGPoint(x: 0, y: -collectionView!.contentInset.top), animated: true)
+    //      }
+    //      if gestureOffsetY > contentOffsetY {
+    //        collectionView?.setContentOffset(CGPoint(x: 0, y: contentOffsetY), animated: true)
+    //      }
+    //      print("Ended")
+    //    }
   }
 }

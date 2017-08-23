@@ -17,7 +17,7 @@ class DailyCalendarCollectionViewController: UICollectionViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    let layout = CalendarLayout()
+    let layout = CalendarLayout()    
     self.collectionView?.collectionViewLayout = layout
     delegate = layout
     pinchGesture = UIPinchGestureRecognizer(target: self, action: #selector(didReceivePinchGesture))
